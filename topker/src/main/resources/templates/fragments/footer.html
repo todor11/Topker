@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<footer th:fragment="footer_main">
+    <p onclick="topFunction()" id="scrollButton">
+        <i class="fa fa-angle-double-up fa-3x" aria-hidden="true"></i>
+    </p>
+
+    <hr>
+    <p class="about">
+        <a href="/aboutUs">
+            <i class="fa fa-home"></i>
+            <span th:text="#{footer.aboutUs}">За нас</span>
+        </a> |
+        <a href="/" rel="nofollow" th:text="#{footer.services}">Услуги</a> |
+        <a href="/partners" rel="nofollow" th:text="#{footer.partners}">Партн&#1100;ори</a> |
+        <a href="/" rel="nofollow" th:text="#{footer.contacts}">Контакти</a>
+    </p>
+    <p>&#169; <span th:text="#{footer.final}">2014 ТОПКЕР-1 ЕООД</span></p>
+
+    <script th:src="@{/js/Filter.js}"></script>
+    <script th:src="@{/jquery/jquery.min.js}"></script>
+    <script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/cookie.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+</footer>
+
+<body>
+</body>
+</html>

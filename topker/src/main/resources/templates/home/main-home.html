@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.min.css"
+          th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../../static/css/custom.css"
+          th:href="@{/css/custom.css}"/>
+    <link rel="stylesheet" href="../../static/bootstrap/font-awesome/css/font-awesome.min.css"
+          th:href="@{/bootstrap/font-awesome/css/font-awesome.min.css}">
+    <title >Topker</title>
+</head>
+<body>
+    <main>
+        <div class="col-md-3 col-xs-1 p-l-0 p-r-0 collapse" id="sidebar" aria-expanded="true">
+            <div class="list-group panel category-filters">
+                <div id="closeSidebarButton" href="#sidebar" data-toggle="collapse" aria-expanded="true">
+                    <i class="fa fa-times fa-2x" aria-hidden="true" id="closeSidebarIcon"></i>
+                </div>
+                <div class="filters-group">
+                    <header>
+                        <h5 class="category-name">Категории</h5>
+                    </header>
+                    <div class="form-check" id="category-box">
+
+                    </div>
+                </div>
+                <div class="filters-group">
+                    <div class="upper-border"></div>
+                    <header>
+                        <h5 class="category-name">Марки</h5>
+                    </header>
+                    <div class="form-check" id="brand-box">
+
+                    </div>
+                </div>
+                <div class="filters-group">
+                    <div class="upper-border"></div>
+                    <header>
+                        <h5 class="category-name">Цена</h5>
+                    </header>
+                    <div class="form-check" id="priceRanges">
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="priceRange_0-50">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">0-50 lv.</span>
+                        </label>
+                        <div class="small-separator"></div>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="priceRange_50-100">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">50-100 lv.</span>
+                        </label>
+                        <div class="small-separator"></div>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="priceRange_100-150">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">100-150 lv.</span>
+                        </label>
+                        <div class="small-separator"></div>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="priceRange_150-200">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">150-200 lv.</span>
+                        </label>
+                        <div class="small-separator"></div>
+                        <label class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="priceRange_200-1000000">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">nad 200 lv.</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 col-xs-11 p-l-2 p-t-2" id="productsResizable">
+            <a href="#sidebar" data-toggle="collapse" id="sidebarButton" aria-expanded="true">
+                <i class="fa fa-navicon fa-lg fa-2x"></i>
+            </a>
+            <hr>
+            <section class="topker-section">
+                <div class="category-group row">
+                    <div class="card product-small-view-box product-card" th:each="product, iter : ${products}" th:object="${product}">
+                        <div class="image-holder">
+                            <img class="card-img-top product-card-image" th:src="*{mainImage}" th:alt="*{imageTagAltAttributeText}">
+                        </div>
+                        <div class="card-block">
+                            <p class="card-text" th:text="*{shortDescription}">Акумулаторен винтоверт</p>
+                            <p class="price-box">
+                                <span class="old-price" th:text="${#numbers.formatDecimal(product.price, 0, 2)}" th:classappend="*{!isOnPromotion}? 'hideTextInMenu'">255.20</span>
+                                <span class="old-price" th:classappend="*{!isOnPromotion}? 'hideTextInMenu'" >lv.</span>
+                                <span class="money-new-price" th:text="${#numbers.formatDecimal(product.discountedPrice, 0, 2)}" th:classappend="*{!isOnPromotion}? 'hideTextInMenu'" >220.20</span>
+                                <span class="money-currency" th:classappend="*{!isOnPromotion}? 'hideTextInMenu'">lv.</span>
+
+                                <span class="product-price" th:text="${#numbers.formatDecimal(product.price, 0, 2)}" th:classappend="*{isOnPromotion}? 'hideTextInMenu'">220.20</span>
+                                <span class="product-price" th:classappend="*{isOnPromotion}? 'hideTextInMenu'">lv.</span>
+                            </p>
+                            <a href="#" class="btn btn-success add-product-cart-button" th:id="|addToCardButton_*{id}|">Add to cart</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <script th:src="@{/js/main_home.js}"></script>
+    </main>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.min.css"
+          th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../../static/css/custom.css"
+          th:href="@{/css/custom.css}"/>
+    <link rel="stylesheet" href="../../static/bootstrap/font-awesome/css/font-awesome.min.css"
+          th:href="@{/bootstrap/font-awesome/css/font-awesome.min.css}"/>
+    <title >Login</title>
+</head>
+<body>
+<header th:replace="fragments/menus::menus">
+</header>
+<main>
+    <div class="container">
+        <div class="col-6 forms">
+            <h1 th:text="#{login.titlePage}">Login Page</h1>
+            <div style="color: red" th:if="${error} != null" th:text="${error}"></div>
+            <form method="post">
+                <div class="form-group">
+                    <label class="form-control-label" for="inputUsername">Username</label>
+                    <input type="text" class="form-control form-control-danger" id="inputUsername" name="username"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="inputPassword" th:text="#{user.password}">Password</label>
+                    <input type="password" class="form-control form-control-danger" id="inputPassword" name="password"/>
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="rememberMe"/>
+                        Remember Me
+                    </label>
+                </div>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <input type="submit" class="btn btn-success" value="Log In"/>
+            </form>
+            <br/>
+            <form action="/connect/facebook" method="post">
+                <input type="hidden" name="scope" value="public_profile, email, publish_actions, publish_pages, manage_pages, pages_messaging_subscriptions, pages_messaging_phone_number " />
+                <input class="btn btn-primary facebook-btn" type="submit" value="Facebook"/>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            </form>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/footer::footer">
+</footer>
+</body>
+</html>

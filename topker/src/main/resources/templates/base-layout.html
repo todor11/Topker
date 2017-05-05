@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css"
+              th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" href="../static/css/custom.css"
+              th:href="@{/css/custom.css}"/>
+        <link rel="stylesheet" href="../static/bootstrap/font-awesome/css/font-awesome.min.css"
+              th:href="@{/bootstrap/font-awesome/css/font-awesome.min.css}"/>
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+        <title>Topker</title>
+    </head>
+    <body>
+        <header th:replace="fragments/menus::menus"></header>
+
+        <div class="container-fluid main-page-container">
+            <main th:replace="~{${view} :: main}"></main>
+        </div>
+
+        <footer th:replace="fragments/footer::footer"></footer>
+    </body>
+</html>

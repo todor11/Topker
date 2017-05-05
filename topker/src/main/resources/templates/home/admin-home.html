@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="../../static/bootstrap/css/bootstrap.min.css"
+          th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="../../static/css/custom.css"
+          th:href="@{/css/custom.css}"/>
+    <link rel="stylesheet" href="../../static/bootstrap/font-awesome/css/font-awesome.min.css"
+          th:href="@{/bootstrap/font-awesome/css/font-awesome.min.css}">
+    <title >Topker</title>
+</head>
+<body>
+<main>
+    <div id="admin-products" sec:authorize="hasRole('ADMIN')">
+        <div id="admin-products-head">
+            <h3>Products</h3>
+            <a href="/admin/products/create" id="add-Product-Button" class="btn btn btn-success">+ Add Product</a>
+        </div>
+        <br/>
+        <div id="adminProductsList">
+            <table class="table table-hover table-striped table-sm admin-table" id="adminProductTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Barcode</th>
+                        <th>Name</th>
+                        <th>Model</th>
+                        <th>Brand</th>
+                        <th>Price</th>
+                        <th>Current price</th>
+                        <th>On promotion</th>
+                        <th>Quantity</th>
+                        <th>Quantity sold</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="product, iter : ${products}" th:object="${product}" th:id="|tr_${product.id}|">
+                        <th scope="row" th:text="${iter.count}"></th>
+                        <td th:text="*{barcode}">Barcode</td>
+                        <td th:text="*{name}">Name</td>
+                        <td th:text="*{model}">Model</td>
+                        <td th:text="*{brandName}">Brand</td>
+                        <td th:text="${#numbers.formatDecimal(product.price, 0, 2)}">Price</td>
+                        <td th:text="${#numbers.formatDecimal(product.currentPrice, 0, 2)}">Current price</td>
+                        <td>
+                            <p th:classappend="*{!isOnPromotion}? 'hideTextInMenu'"><i class="fa fa-check" aria-hidden="true"></i></p>
+                            <p th:classappend="*{isOnPromotion}? 'hideTextInMenu'"><i class="fa fa-times" aria-hidden="true"></i></p>
+
+                        </td>
+                        <td th:text="*{quantity}">Quantity</td>
+                        <td th:text="*{quantitySold}">Quantity sold</td>
+                        <td>
+                            <a th:href="|/admin/products/edit/*{id}|" class="btn btn-sm btn-warning">Edit</a>
+                            <a th:id="|product_*{id}|" class="btn btn-sm btn-danger delete-product-button">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+</body>
+</html>
